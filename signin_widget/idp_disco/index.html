@@ -17,16 +17,17 @@
     baseUrl: "https://XXX.okta.com",
     clientId: "XXX",
     authParams: {
-      issuer: "https://XXX.okta.com/oauth2/XXX",
+      issuer: "https://textmethod.okta.com/oauth2/XXX",
       responseType: ['token', 'id_token'],
       display: 'page'
     },
+
     features: {
       // Used to enable the idp discovery feature on the widget.
       idpDiscovery: true
     },
     idpDiscovery: {
-    requestContext: '/home/oidc_client/XXX/YYY',
+      requestContext: '/home/oidc_client/XXX/YYY',
     },
 
   });

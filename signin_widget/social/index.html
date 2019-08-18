@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.14.0/js/okta-sign-in.min.js" type="text/javascript"></script>
+  <link href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.14.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet" />
+  <link href="https://ok1static.oktacdn.com/assets/js/sdk/okta-signin-widget/2.14.0/css/okta-theme.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+  <br />
+  <div id="okta-login-container"></div>
+  <div id="message"></div>
+  <script type="text/javascript">
+  const messageEl = document.getElementById('message');
+  let message;
+  const oktaSignIn = new OktaSignIn({
+    baseUrl: "https://XXX.okta.com",
+    clientId: "XXX",
+    authParams: {
+      issuer: "https://XXX.okta.com/oauth2/XXX",
+      responseType: ['token', 'id_token'],
+      display: 'popup',
+      // NOTE: using "page" here instead will require oktaSignIn.token.parseTokensFromUrl
+    },
+    idps: [
+      // NOTE: configure Google social IdP in your Okta tenant using this guide:
+      //   https://developer.okta.com/docs/guides/sign-in-with-google/setup-app/
+      {type: 'GOOGLE', id: 'XXX'}
+    ]
+  });
+  oktaSignIn.session.get(function(res) {
+    // Session exists, show logged in state.
+    if (res.status === 'ACTIVE') {
+      message = 'Welcome back, ' + res.login;
+      console.log(message);
+      messageEl.textContent = message;
+      return;
+    }
+    // No session, show the login form
+    oktaSignIn.renderEl(
+      { el: '#okta-login-container' },
+      function success(res) {
+        console.log(res);
+        window.location = '/';
+      },
+      function error(err) {
+        // handle errors as needed
+        console.error(err);
+      }
+    );
+  });
+  // }
+  </script>
+</body>
+
+</html>
