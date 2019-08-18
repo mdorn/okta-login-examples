@@ -1,0 +1,53 @@
+<!-- See: https://developer.okta.com/code/javascript/okta_auth_sdk/ -->
+<html>
+<head>
+<script src="https://ok1static.oktacdn.com/assets/js/sdk/okta-auth-js/2.0.1/okta-auth-js.min.js" type="text/javascript"></script>
+</head>
+<body>
+  <div id="message"></div>
+<script>
+const authClient = new OktaAuth({
+  url: 'https://XXX.okta.com',
+  clientId: 'XXX',
+  redirectUri: 'http://localhost:8000'
+});
+
+const messageEl = document.getElementById('message');
+async function main() {
+  // Attempt to retrieve ID Token from Token Manager
+  let idToken = await authClient.tokenManager.get('idToken');
+  let message;
+  // If ID Token exists, output it to the console
+  if (idToken) {
+    message = `hi ${idToken.claims.email}! token found in tokenManager`;
+    console.log(message);
+    messageEl.textContent = message;
+  // If ID Token isn't found, try to parse it from the current URL
+  } else if (location.hash) {
+    let idToken = await authClient.token.parseFromUrl();
+    message = `hi ${idToken.claims.email}! token found in URL`;
+    console.log(message);
+    messageEl.textContent = message;
+    // Store parsed token in Token Manager
+    authClient.tokenManager.add('idToken', idToken);
+    console.log(idToken);
+  // You're not logged in, you need a sessionToken
+  } else {
+    const username = prompt('What is your username?');
+    const password = prompt('What is your password?');
+    const res = await authClient.signIn({username, password});
+    if (res.status === 'SUCCESS') {
+      console.log('Session ID is ', res.sessionToken);
+      authClient.token.getWithRedirect({
+        sessionToken: res.sessionToken,
+        responseType: 'id_token'
+      });
+    }
+  }
+}
+
+main();
+
+</script>
+</body>
+</html>
