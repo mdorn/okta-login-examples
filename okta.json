@@ -1,8 +1,10 @@
 {
   "name": "Okta Login Examples",
-  "description": "Client-side JavaScript examples for logging users into your custom app with Okta",
-  "url": "https://github.com/mdorn/okta_login_examples",
+  "description": "A set of 4 client-side JavaScript examples for logging users into your custom app with Okta.",
+  "url": "https://developer.okta.com",
+  "logo": "https://developer.okta.com/logo.png",
   "categories": [
-    "authentication"
+    "authentication",
+    "social-authentication"
   ]
 }
