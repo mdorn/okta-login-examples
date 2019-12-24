@@ -1,4 +1,4 @@
-This repo contains a set of 3 client-side JavaScript examples for logging users into your custom app with Okta:
+This repo contains a set of 4 client-side JavaScript examples for logging users into your custom app with Okta:
 
 * `okta_auth_sdk/oidc_token`: Uses the Okta Auth JS library to create an instance of `OktaAuth` to redirect to Okta for hosted login, and retrieve and store tokens from the authorization server.
 * `okta_auth_sdk/session`:  Uses the Okta Auth JS library to submit a user's credentials via the Authn API, retrieve a session token, and exchange the session token for an id_token.
