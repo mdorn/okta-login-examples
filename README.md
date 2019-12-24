@@ -10,3 +10,7 @@ To run them, after configuring your OIDC client, just change to the directory of
     python -m SimpleHTTPServer
 
 Then navigate to http://localhost:8000 in your browser and keep an eye on the console for log messages explaining what's happening.
+
+TODO:
+
+- Write a bash script populate configuration values from a `.env` file.
